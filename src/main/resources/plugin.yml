@@ -1,0 +1,7 @@
+name: Kaboom
+version: ${project.version}
+main: me.noodles.boom.Kaboom
+authors: [BGHDDevelopment]
+website: https://bghddevelopment.com/
+commands:
+  kaboom:

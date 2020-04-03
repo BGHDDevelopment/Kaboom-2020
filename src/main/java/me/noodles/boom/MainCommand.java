@@ -13,7 +13,7 @@ public class MainCommand implements CommandExecutor  {
 	String Message1;
 	
 	 public MainCommand() {
-	        this.Message1 = ChatColor.translateAlternateColorCodes('&', MainBoom.getPlugin().getConfig().getString("Messages.Message1"));
+	        this.Message1 = ChatColor.translateAlternateColorCodes('&', Kaboom.getPlugin().getConfig().getString("Messages.Message1"));
 	
 	 } 
 	
