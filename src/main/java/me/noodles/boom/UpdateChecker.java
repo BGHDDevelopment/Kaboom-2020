@@ -4,11 +4,11 @@ import java.io.*;
 
 public class UpdateChecker
 {
-    public MainBoom plugin;
+    public Kaboom plugin;
     public String version;
     
     
-    public UpdateChecker(MainBoom plugin) {
+    public UpdateChecker(Kaboom plugin) {
         this.plugin = plugin;
         this.version = this.getLatestVersion();
     }
