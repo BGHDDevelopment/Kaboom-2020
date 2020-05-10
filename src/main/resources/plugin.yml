@@ -5,3 +5,5 @@ authors: [BGHDDevelopment]
 website: https://bghddevelopment.com/
 commands:
   kaboom:
+    description: Fling players
+    usage: /<command> <reload>

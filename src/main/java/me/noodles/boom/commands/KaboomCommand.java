@@ -1,17 +1,21 @@
 package me.noodles.boom.commands;
 
+import com.google.common.collect.ImmutableList;
 import me.noodles.boom.Kaboom;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
+import org.bukkit.util.StringUtil;
 import org.bukkit.util.Vector;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class KaboomCommand implements TabExecutor {
+    private final ImmutableList<String> keywords = ImmutableList.of("reload");
     private final Kaboom plugin;
 
     public KaboomCommand(Kaboom plugin) {
@@ -20,6 +24,20 @@ public class KaboomCommand implements TabExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        if (args.length == 1 && sender.hasPermission("kaboom.reload")) {
+            if (getKeywords().contains(args[0])) {
+                final String keyword = args[0];
+
+                if (keyword.equalsIgnoreCase("reload")) {
+                    getPlugin().reloadConfig();
+
+                    sender.sendMessage(translate("&aConfig has been reloaded."));
+
+                    return true;
+                }
+            }
+        }
+
         if (sender.hasPermission("kaboom.use")) {
             Bukkit.getOnlinePlayers().forEach(player -> {
                 if (!player.hasPermission("kaboom.bypass")) {
@@ -40,11 +58,15 @@ public class KaboomCommand implements TabExecutor {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        return Collections.emptyList();
+        return (args.length == 1 && sender.hasPermission("kaboom.reload")) ? StringUtil.copyPartialMatches(args[0], getKeywords(), new ArrayList<>()) : Collections.emptyList();
     }
 
     private String translate(final String message) {
         return ChatColor.translateAlternateColorCodes('&', message);
+    }
+
+    private ImmutableList<String> getKeywords() {
+        return keywords;
     }
 
     private Kaboom getPlugin() {
