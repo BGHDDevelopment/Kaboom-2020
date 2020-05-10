@@ -4,36 +4,51 @@ import me.noodles.boom.Kaboom;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.util.Vector;
 
-public class KaboomCommand implements CommandExecutor  {
-    String Message1;
+import java.util.Collections;
+import java.util.List;
 
-    public KaboomCommand() {
-        this.Message1 = ChatColor.translateAlternateColorCodes('&', Kaboom.getPlugin().getConfig().getString("Messages.Message1"));
+public class KaboomCommand implements TabExecutor {
+    private final Kaboom plugin;
+
+    public KaboomCommand(Kaboom plugin) {
+        this.plugin = plugin;
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (cmd.getName().equalsIgnoreCase("kaboom")) {
-            if (!sender.hasPermission("kaboom.use")) {
-                sender.sendMessage(ChatColor.RED + "(!) You don't have permission to use this command!");
-            } else {
-                for (Player players : Bukkit.getOnlinePlayers()) {
-                    if (sender.hasPermission("kaboom.use")) {
-                        players.getWorld().strikeLightningEffect(players.getLocation());
-                        players.setVelocity(new Vector(0, 64, 0));
-                        players.setFallDistance(-65.0F);
-                        players.sendMessage(String.valueOf(this.Message1));
-                    }
+        if (sender.hasPermission("kaboom.use")) {
+            Bukkit.getOnlinePlayers().forEach(player -> {
+                if (!player.hasPermission("kaboom.bypass")) {
+                    player.getWorld().strikeLightningEffect(player.getLocation());
+                    player.setVelocity(new Vector(0, 64, 0));
+                    player.setFallDistance(-65.0F);
+                    player.sendMessage(translate(getPlugin().getConfig().getString("Messages.Message1")));
                 }
-            }
+            });
+
+            return true;
         }
 
+        sender.sendMessage(translate("&cYou don't have permission to run that command."));
+
         return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        return Collections.emptyList();
+    }
+
+    private String translate(final String message) {
+        return ChatColor.translateAlternateColorCodes('&', message);
+    }
+
+    private Kaboom getPlugin() {
+        return plugin;
     }
 
 }

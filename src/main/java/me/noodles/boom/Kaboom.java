@@ -4,7 +4,6 @@ import me.noodles.boom.commands.KaboomCommand;
 import me.noodles.boom.listeners.UpdateJoinEvent;
 import me.noodles.boom.utilities.UpdateChecker;
 import org.bukkit.Bukkit;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -22,7 +21,7 @@ public final class Kaboom extends JavaPlugin {
         this.reloadConfig();
 
         this.getLogger().info(String.format("Kaboom v%s loading commands ...", version));
-        this.getCommand("kaboom").setExecutor(new KaboomCommand());
+        this.getCommand("kaboom").setExecutor(new KaboomCommand(this));
 
         this.getLogger().info(String.format("Kaboom v%s loading events ...", version));
         registerEvents(this, new UpdateJoinEvent());
