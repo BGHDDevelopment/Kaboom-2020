@@ -1,5 +1,6 @@
-package me.noodles.boom;
+package me.noodles.boom.commands;
 
+import me.noodles.boom.Kaboom;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -8,11 +9,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
-public class MainCommand implements CommandExecutor  {
+public class KaboomCommand implements CommandExecutor  {
 
 	String Message1;
 	
-	 public MainCommand() {
+	 public KaboomCommand() {
 	        this.Message1 = ChatColor.translateAlternateColorCodes('&', Kaboom.getPlugin().getConfig().getString("Messages.Message1"));
 	
 	 } 

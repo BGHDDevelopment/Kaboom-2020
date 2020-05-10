@@ -1,5 +1,6 @@
 package me.noodles.boom;
 
+import me.noodles.boom.commands.KaboomCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.event.Listener;
@@ -22,7 +23,7 @@ public final class Kaboom extends JavaPlugin implements Listener {
         this.reloadConfig();
         registerEvents((Plugin)this, new UpdateJoinEvent());
         registerEvents(this, this);
-        this.getCommand("kaboom").setExecutor((CommandExecutor)new MainCommand());
+        this.getCommand("kaboom").setExecutor((CommandExecutor)new KaboomCommand());
         this.getLogger().info("Kaboom  V" + VarUtilType.getVersion() + " started!");
         this.setEnabled(true);
         this.getLogger().info("Kaboom V" + VarUtilType.getVersion() + " checking for updates...");
