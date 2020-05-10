@@ -2,32 +2,42 @@ package me.noodles.boom.listeners;
 
 import me.noodles.boom.Kaboom;
 import me.noodles.boom.utilities.UpdateChecker;
-import org.bukkit.event.player.*;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.*;
-import org.bukkit.event.*;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 
 public class UpdateJoinEvent implements Listener {
-	public UpdateChecker checker;
+	private final Kaboom plugin;
+
+    public UpdateJoinEvent(Kaboom plugin) {
+        this.plugin = plugin;
+    }
 
     @EventHandler
-    public void onJoin(final PlayerJoinEvent e) {
-        Player p = e.getPlayer();
-        if (p.hasPermission("kaboom.update")) {
-            if (Kaboom.getPlugin().getConfig().getBoolean("Update.Enabled")) {
-                this.checker = new UpdateChecker(Kaboom.plugin);
+    public void onPlayerJoin(final PlayerJoinEvent event) {
+        final Player player = event.getPlayer();
 
-                if (this.checker.isConnected()) {
-                    if (this.checker.hasUpdate()) {
-                        p.sendMessage(ChatColor.GRAY + "=========================");
-                        p.sendMessage(ChatColor.RED + "Kaboom is outdated!");
-                        p.sendMessage(ChatColor.GREEN + "Newest version: " + this.checker.getLatestVersion());
-                        p.sendMessage(ChatColor.RED + "Your version: " + Kaboom.plugin.getDescription().getVersion());
-                        p.sendMessage(ChatColor.GRAY + "=========================");
-                    }
+        if (getPlugin().getConfig().getBoolean("Update.Enabled", true)) {
+            if (player.hasPermission("kaboom.update")) {
+                if (getPlugin().getConfig().getBoolean("CheckForUpdates.Enabled", true)) {
+                    new UpdateChecker(getPlugin(), 46678).getLatestVersion(version -> {
+                        if (!getPlugin().getDescription().getVersion().equalsIgnoreCase(version)) {
+                            player.sendMessage(ChatColor.GRAY + "=========================");
+                            player.sendMessage(ChatColor.RED + "Kaboom is outdated!");
+                            player.sendMessage(ChatColor.GREEN + "Newest version: " + version);
+                            player.sendMessage(ChatColor.RED + "Your version: " + getPlugin().getDescription().getVersion());
+                            player.sendMessage(ChatColor.GRAY + "=========================");
+                        }
+                    });
                 }
             }
         }
+    }
+
+    private Kaboom getPlugin() {
+        return plugin;
     }
 
 }

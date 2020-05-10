@@ -1,45 +1,47 @@
 package me.noodles.boom.utilities;
 
 import me.noodles.boom.Kaboom;
-import java.net.*;
-import java.io.*;
+import org.bukkit.Bukkit;
 
-public class UpdateChecker  {
-    public Kaboom plugin;
-    public String version;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.Scanner;
+import java.util.function.Consumer;
 
-    public UpdateChecker(Kaboom plugin) {
+public final class UpdateChecker {
+    private final String URL = "https://api.spigotmc.org/legacy/update.php?resource=";
+
+    private final Kaboom plugin;
+    private final int resourceId;
+
+    public UpdateChecker(Kaboom plugin, int resourceId) {
+        this.resourceId = resourceId;
         this.plugin = plugin;
-        this.version = this.getLatestVersion();
     }
 
-    @SuppressWarnings("unused")
-	public String getLatestVersion() {
-        try {
-            final int resource = 46678;
-            final HttpURLConnection con = (HttpURLConnection)new URL("https://api.spigotmc.org/legacy/update.php?resource=46678").openConnection();
-            con.setDoOutput(true);
-            con.setRequestMethod("POST");
-            con.getOutputStream().write("key=98BE0FE67F88AB82B4C197FAF1DC3B69206EFDCC4D3B80FC83A00037510B99B4&resource=46678".getBytes("UTF-8"));
-            final String version = new BufferedReader(new InputStreamReader(con.getInputStream())).readLine();
-            if (version.length() <= 7) {
-                return version;
+    public void getLatestVersion(final Consumer<String> consumer) {
+        Bukkit.getScheduler().runTaskAsynchronously(getPlugin(), () -> {
+            try (InputStream inputStream = new URL(getURL() + getResourceId()).openStream(); Scanner scanner = new Scanner(inputStream)) {
+                if (scanner.hasNext()) {
+                    consumer.accept(scanner.next());
+                }
+            } catch (IOException exception) {
+                getPlugin().getLogger().info("Cannot look for updates: " + exception.getMessage());
             }
-        }
-        catch (Exception ex) {
-            System.out.println("---------------------------------");
-            this.plugin.getLogger().info("Failed to check for a update!");
-            System.out.println("---------------------------------");
-        }
-        return null;
+        });
     }
 
-    public boolean isConnected() {
-        return this.version != null;
+    private String getURL() {
+        return URL;
     }
 
-    public boolean hasUpdate() {
-        return !this.version.equals(this.plugin.getDescription().getVersion());
+    private Kaboom getPlugin() {
+        return plugin;
+    }
+
+    private int getResourceId() {
+        return resourceId;
     }
 
 }
