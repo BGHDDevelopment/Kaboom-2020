@@ -10,12 +10,9 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class Kaboom extends JavaPlugin implements Listener {
-
-
+public final class Kaboom extends JavaPlugin {
     public static Kaboom plugin;
     private UpdateChecker checker;
-
 
     public void onEnable() {
         Kaboom.plugin = this;
@@ -24,7 +21,6 @@ public final class Kaboom extends JavaPlugin implements Listener {
         this.saveDefaultConfig();
         this.reloadConfig();
         registerEvents((Plugin)this, new UpdateJoinEvent());
-        registerEvents(this, this);
         this.getCommand("kaboom").setExecutor((CommandExecutor)new KaboomCommand());
         this.getLogger().info("Kaboom  V" + VarUtilType.getVersion() + " started!");
         this.setEnabled(true);
@@ -57,6 +53,4 @@ public final class Kaboom extends JavaPlugin implements Listener {
         return (Kaboom)getPlugin((Class)Kaboom.class);
     }
 
-
 }
-

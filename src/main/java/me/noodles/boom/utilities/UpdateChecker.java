@@ -1,20 +1,18 @@
 package me.noodles.boom.utilities;
-import me.noodles.boom.Kaboom;
 
+import me.noodles.boom.Kaboom;
 import java.net.*;
 import java.io.*;
 
-public class UpdateChecker
-{
+public class UpdateChecker  {
     public Kaboom plugin;
     public String version;
-    
-    
+
     public UpdateChecker(Kaboom plugin) {
         this.plugin = plugin;
         this.version = this.getLatestVersion();
     }
-    
+
     @SuppressWarnings("unused")
 	public String getLatestVersion() {
         try {
@@ -35,12 +33,13 @@ public class UpdateChecker
         }
         return null;
     }
-    
+
     public boolean isConnected() {
         return this.version != null;
     }
-    
+
     public boolean hasUpdate() {
         return !this.version.equals(this.plugin.getDescription().getVersion());
     }
+
 }
