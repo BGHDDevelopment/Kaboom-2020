@@ -7,7 +7,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Kaboom extends JavaPlugin {
@@ -16,15 +15,19 @@ public final class Kaboom extends JavaPlugin {
 
     public void onEnable() {
         Kaboom.plugin = this;
-        final PluginDescriptionFile VarUtilType = this.getDescription();
-        this.getLogger().info("Kaboom  V" + VarUtilType.getVersion() + " starting...");
+        final String version = this.getDescription().getVersion();
+
+        this.getLogger().info(String.format("Kaboom v%s starting ...", version));
         this.saveDefaultConfig();
         this.reloadConfig();
-        registerEvents((Plugin)this, new UpdateJoinEvent());
+
+        this.getLogger().info(String.format("Kaboom v%s loading commands ...", version));
         this.getCommand("kaboom").setExecutor((CommandExecutor)new KaboomCommand());
-        this.getLogger().info("Kaboom  V" + VarUtilType.getVersion() + " started!");
-        this.setEnabled(true);
-        this.getLogger().info("Kaboom V" + VarUtilType.getVersion() + " checking for updates...");
+
+        this.getLogger().info(String.format("Kaboom v%s loading events ...", version));
+        registerEvents((Plugin)this, new UpdateJoinEvent());
+
+        this.getLogger().info(String.format("Kaboom v%s started ...", version));
         this.checker = new UpdateChecker(this);
         if (this.checker.isConnected()) {
             if (this.checker.hasUpdate()) {
