@@ -22,10 +22,10 @@ public final class Kaboom extends JavaPlugin {
         this.reloadConfig();
 
         this.getLogger().info(String.format("Kaboom v%s loading commands ...", version));
-        this.getCommand("kaboom").setExecutor((CommandExecutor)new KaboomCommand());
+        this.getCommand("kaboom").setExecutor(new KaboomCommand());
 
         this.getLogger().info(String.format("Kaboom v%s loading events ...", version));
-        registerEvents((Plugin)this, new UpdateJoinEvent());
+        registerEvents(this, new UpdateJoinEvent());
 
         this.getLogger().info(String.format("Kaboom v%s started ...", version));
         this.checker = new UpdateChecker(this);
@@ -45,7 +45,7 @@ public final class Kaboom extends JavaPlugin {
         }
     }
 
-    public static void registerEvents(final Plugin plugin, final Listener... listeners) {
+    private void registerEvents(final Plugin plugin, final Listener... listeners) {
         for (final Listener listener : listeners) {
             Bukkit.getServer().getPluginManager().registerEvents(listener, plugin);
         }
