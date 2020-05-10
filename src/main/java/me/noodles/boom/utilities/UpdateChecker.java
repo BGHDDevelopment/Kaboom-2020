@@ -1,4 +1,6 @@
-package me.noodles.boom;
+package me.noodles.boom.utilities;
+import me.noodles.boom.Kaboom;
+
 import java.net.*;
 import java.io.*;
 

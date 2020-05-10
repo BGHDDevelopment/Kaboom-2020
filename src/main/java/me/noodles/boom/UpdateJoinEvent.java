@@ -1,5 +1,6 @@
 package me.noodles.boom;
 
+import me.noodles.boom.utilities.UpdateChecker;
 import org.bukkit.event.player.*;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.*;
