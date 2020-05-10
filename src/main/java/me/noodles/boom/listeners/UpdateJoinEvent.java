@@ -1,5 +1,6 @@
-package me.noodles.boom;
+package me.noodles.boom.listeners;
 
+import me.noodles.boom.Kaboom;
 import me.noodles.boom.utilities.UpdateChecker;
 import org.bukkit.event.player.*;
 import org.bukkit.ChatColor;

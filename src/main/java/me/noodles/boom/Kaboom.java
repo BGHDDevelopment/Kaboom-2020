@@ -1,6 +1,7 @@
 package me.noodles.boom;
 
 import me.noodles.boom.commands.KaboomCommand;
+import me.noodles.boom.listeners.UpdateJoinEvent;
 import me.noodles.boom.utilities.UpdateChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
