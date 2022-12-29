@@ -1,6 +1,10 @@
 package com.bghddevelpment.kaboom;
 
+import co.aikar.commands.BukkitCommandIssuer;
+import co.aikar.commands.BukkitCommandManager;
+import co.aikar.commands.ConditionFailedException;
 import com.bghddevelpment.kaboom.commands.KaboomCommand;
+import com.bghddevelpment.kaboom.commands.KaboomReloadCommand;
 import com.bghddevelpment.kaboom.utilities.Color;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -18,19 +22,31 @@ public final class Kaboom extends JavaPlugin {
     public void onEnable() {
         final String version = this.getDescription().getVersion();
 
-        this.getLogger().info(String.format("Kaboom v%s starting ...", version));
+       Color.log(String.format("Kaboom v%s starting ...", version));
         this.saveDefaultConfig();
         this.reloadConfig();
 
-        this.getLogger().info(String.format("Kaboom v%s loading commands ...", version));
-        this.getCommand("kaboom").setExecutor(new KaboomCommand(this));
+        Color.log(String.format("Kaboom v%s loading commands ...", version));
+        loadCommands();
 
-        this.getLogger().info(String.format("Kaboom v%s loading events ...", version));
+        Color.log(String.format("Kaboom v%s loading events ...", version));
 
-        this.getLogger().info(String.format("Kaboom v%s started ...", version));
+        Color.log(String.format("Kaboom v%s started ...", version));
 
         updateCheck(Bukkit.getConsoleSender(), true);
 
+    }
+
+    private void loadCommands() {
+        BukkitCommandManager manager = new BukkitCommandManager(this);
+        manager.getCommandConditions().addCondition("noconsole", (context) -> {
+            BukkitCommandIssuer issuer = context.getIssuer();
+            if (!issuer.isPlayer()) {
+                throw new ConditionFailedException("Console cannot use this command.");
+            }
+        });
+        manager.registerCommand(new KaboomCommand());
+        manager.registerCommand(new KaboomReloadCommand());
     }
 
     public void updateCheck(CommandSender sender, boolean console) {
