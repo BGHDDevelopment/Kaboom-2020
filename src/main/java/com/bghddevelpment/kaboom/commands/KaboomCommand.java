@@ -1,7 +1,7 @@
 package com.bghddevelpment.kaboom.commands;
 
-import com.google.common.collect.ImmutableList;
 import com.bghddevelpment.kaboom.Kaboom;
+import com.google.common.collect.ImmutableList;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

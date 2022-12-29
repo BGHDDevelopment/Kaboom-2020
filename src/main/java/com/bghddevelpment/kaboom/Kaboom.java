@@ -6,8 +6,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
-import org.bukkit.event.Listener;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.BufferedReader;
@@ -33,12 +31,6 @@ public final class Kaboom extends JavaPlugin {
 
         updateCheck(Bukkit.getConsoleSender(), true);
 
-    }
-
-    private void registerEvents(final Plugin plugin, final Listener... listeners) {
-        for (final Listener listener : listeners) {
-            Bukkit.getServer().getPluginManager().registerEvents(listener, plugin);
-        }
     }
 
     public void updateCheck(CommandSender sender, boolean console) {
