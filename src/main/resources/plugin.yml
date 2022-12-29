@@ -1,9 +1,5 @@
 name: Kaboom
-version: ${project.version}
-main: me.noodles.boom.Kaboom
+version: 0.4
+main: com.bghddevelpment.kaboom.Kaboom
 authors: [BGHDDevelopment]
 website: https://bghddevelopment.com/
-commands:
-  kaboom:
-    description: Fling players
-    usage: /<command> <reload>

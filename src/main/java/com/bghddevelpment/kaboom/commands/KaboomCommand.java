@@ -1,7 +1,7 @@
-package me.noodles.boom.commands;
+package com.bghddevelpment.kaboom.commands;
 
 import com.google.common.collect.ImmutableList;
-import me.noodles.boom.Kaboom;
+import com.bghddevelpment.kaboom.Kaboom;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

@@ -1,6 +1,6 @@
-package me.noodles.boom.utilities;
+package com.bghddevelpment.kaboom.utilities;
 
-import me.noodles.boom.Kaboom;
+import com.bghddevelpment.kaboom.Kaboom;
 import org.bukkit.Bukkit;
 
 import java.io.IOException;

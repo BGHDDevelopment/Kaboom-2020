@@ -1,8 +1,8 @@
-package me.noodles.boom;
+package com.bghddevelpment.kaboom;
 
-import me.noodles.boom.commands.KaboomCommand;
-import me.noodles.boom.listeners.UpdateJoinEvent;
-import me.noodles.boom.utilities.UpdateChecker;
+import com.bghddevelpment.kaboom.commands.KaboomCommand;
+import com.bghddevelpment.kaboom.listeners.UpdateJoinEvent;
+import com.bghddevelpment.kaboom.utilities.UpdateChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;

@@ -1,7 +1,7 @@
-package me.noodles.boom.listeners;
+package com.bghddevelpment.kaboom.listeners;
 
-import me.noodles.boom.Kaboom;
-import me.noodles.boom.utilities.UpdateChecker;
+import com.bghddevelpment.kaboom.Kaboom;
+import com.bghddevelpment.kaboom.utilities.UpdateChecker;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
